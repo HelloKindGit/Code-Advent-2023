@@ -22,12 +22,16 @@ def hand_type(hand):
         case _:
             return 0  # High card
         
+def sort_key(hand_bid):
+    hand, _ = hand_bid
+    return hand_type(hand), tuple(card_order.index(c) for c in hand)
+        
 card_order = 'J23456789TQKA'
 
 with open('day_7/part2/input.txt', 'r') as file: # day_7/part2/test.txt
     hands_with_bid = [line.strip().split() for line in file]
 
-hands_with_bid.sort(key=lambda x: (hand_type(x[0]), tuple(card_order.index(c) for c in x[0])))
+hands_with_bid.sort(key=sort_key)
 
 results = sum(rank * int(bid) for rank, (_, bid) in enumerate(hands_with_bid, start=1))
 

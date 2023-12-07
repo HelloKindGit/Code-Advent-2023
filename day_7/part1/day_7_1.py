@@ -4,6 +4,8 @@ def hand_type(hand):
     cards = defaultdict(lambda: 0)
     for card in hand:
         cards[card] += 1
+        
+    print(cards, len(cards))
 
     match len(cards):
         case 1:
@@ -16,13 +18,17 @@ def hand_type(hand):
             return 1  # One pair
         case _:
             return 0  # High card
+        
+def sort_key(hand_bid):
+    hand, _ = hand_bid
+    return hand_type(hand), tuple(card_order.index(c) for c in hand)
 
 card_order = '23456789TJQKA'
 
 with open('day_7/part1/input.txt', 'r') as file: # day_7/part1/test.txt
     hands_with_bid = [line.strip().split() for line in file]
 
-hands_with_bid.sort(key=lambda x: (hand_type(x[0]), tuple(card_order.index(c) for c in x[0])))
+hands_with_bid.sort(key=sort_key)
 print(hands_with_bid)
 
 results = sum(rank * int(bid) for rank, (_, bid) in enumerate(hands_with_bid, start=1))
