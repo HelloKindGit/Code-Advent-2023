@@ -1,5 +1,3 @@
-from collections import deque
-
 def read_input_from_file(file_path):
     with open(file_path, 'r') as file:
         return [line.strip() for line in file]
@@ -7,51 +5,13 @@ def read_input_from_file(file_path):
 def expand_universe(data):
     galaxies = []
 
-    expand_rows = set()
-    expand_cols = set()
-
     for r, line in enumerate(data):
         if "#" in line:
             for c, v in enumerate(line):
                 if v == "#":
                     galaxies.append((r, c))
-        else:
-            expand_rows.add(r)
-
-    for c, col in enumerate(zip(*data)):
-        if "#" not in col:
-            expand_cols.add(c)
 
     return galaxies
-
-def find_neighbors(expanded_image, i, j):
-    neighbors = []
-    if i > 0 and expanded_image[i - 1][j] == '#':
-        neighbors.append((i - 1, j))
-    if i < len(expanded_image) - 1 and expanded_image[i + 1][j] == '#':
-        neighbors.append((i + 1, j))
-    if j > 0 and expanded_image[i][j - 1] == '#':
-        neighbors.append((i, j - 1))
-    if j < len(expanded_image[0]) - 1 and expanded_image[i][j + 1] == '#':
-        neighbors.append((i, j + 1))
-    return neighbors
-
-def calculate_shortest_path(expanded_image, start, end):
-    visited = set()
-    queue = deque([(start, 0)])
-
-    while queue:
-        (i, j), steps = queue.popleft()
-
-        if (i, j) == end:
-            return steps
-
-        if (i, j) not in visited:
-            visited.add((i, j))
-            for neighbor in find_neighbors(expanded_image, i, j):
-                queue.append((neighbor, steps + 1))
-
-    return float('inf')
 
 def calculate_sum_of_shortest_paths(galaxies, expand_level, expand_rows, expand_cols):
     total_shortest_paths = 0
