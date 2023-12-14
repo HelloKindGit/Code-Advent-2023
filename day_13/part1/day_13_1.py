@@ -23,7 +23,7 @@ def find_mirror(pattern, diff=0):
     return -1
 
 def calculate_total_line_of_reflection():
-    file_path = 'day_13/part1/input.txt' # 'day_13/part1/test.txt'
+    file_path = 'day_13/part1/test.txt' # 'day_13/part1/test.txt'
     patterns = read_patterns_from_file(file_path)
     return sum(find_mirror(pattern) for pattern in patterns)
 
