@@ -1,6 +1,6 @@
-def read_initialization_sequence(file_path):
+def read_from_file(file_path):
     with open(file_path, 'r') as file:
-        return file.read().replace('\n', '')
+        return file.read().strip()
 
 def hash_algorithm(s):
     current_value = 0
@@ -11,15 +11,9 @@ def hash_algorithm(s):
         current_value %= 256
     return current_value
 
-def sum_of_results(initialization_sequence):
-    steps = initialization_sequence.split(',')
-    total_sum = 0
-    for step in steps:
-        total_sum += hash_algorithm(step)
-    return total_sum
-
 file_path = 'day_15/part1/input.txt' #'day_15/part1/test.txt'
-initialization_sequence = read_initialization_sequence(file_path)
+initialization_sequence = read_from_file(file_path)
 
-result = sum_of_results(initialization_sequence)
-print(result)
+steps = initialization_sequence.split(',')
+hash_sums = sum(hash_algorithm(step) for step in steps)
+print(hash_sums)
