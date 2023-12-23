@@ -36,13 +36,13 @@ def drop(tower):
 def solve(bricks):
     bricks_sorted = sorted(bricks, key=lambda brick: brick[2])
     _, fallen = drop(bricks_sorted)
-    p1 = 0
+    save_bricks = 0
     for i in range(len(fallen)):
         removed = fallen[:i] + fallen[i + 1:]
         falls, _ = drop(removed)
         if not falls:
-            p1 += 1
-    return p1
+            save_bricks += 1
+    return save_bricks
 
 file_path = 'day_22/part1/input.txt'  #'day_22/part1/test.txt'
 input_data = read_input_from_file(file_path)

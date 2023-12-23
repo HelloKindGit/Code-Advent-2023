@@ -34,7 +34,7 @@ def drop(tower):
     return falls, new_tower
 
 def calculate_total_falls_refined_corrected(bricks):
-    p2 = 0
+    other_bricks = 0
     sorted_bricks = sorted(bricks, key=lambda b: b[2])
 
     _, fallen = drop(sorted_bricks)
@@ -44,12 +44,13 @@ def calculate_total_falls_refined_corrected(bricks):
         removed = fallen[:i] + fallen[i+1:]
         falls, _ = drop(removed)
         if falls:
-            p2 += falls
+            other_bricks += falls
 
-    return p2
+    return other_bricks
 
 file_path = 'day_22/part1/input.txt'  #'day_22/part1/test.txt'
-input_data = read_input_from_file(file_path)
-bricks = parse_input(input_data)
-total_falls = calculate_total_falls_refined_corrected(bricks)
-print(f"Total number of falls: {total_falls}")
+data = read_input_from_file(file_path)
+
+bricks = parse_input(data)
+result = calculate_total_falls_refined_corrected(bricks)
+print(result)
