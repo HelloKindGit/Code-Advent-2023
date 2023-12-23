@@ -42,7 +42,6 @@ def find_longest_hike(map_grid):
         if map_grid[0][y] == '.':
             visited[0][y] = True
             dfs(0, y, visited, 0)
-            visited[0][y] = False
 
     return max_hike_length
 
