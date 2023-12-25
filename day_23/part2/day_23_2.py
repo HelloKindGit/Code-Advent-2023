@@ -15,7 +15,7 @@ def create_graph(map_grid):
     graph = defaultdict(list)
     vertices = set()
 
-    # Identify vertices and start/end points
+    # Identify vertices
     for r in range(rows):
         for c in range(cols):
             if map_grid[r][c] == '.':
